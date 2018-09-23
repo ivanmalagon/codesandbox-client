@@ -108,44 +108,6 @@ module.exports = {
         loader: 'happypack/loader',
       },
 
-      // Transpile node dependencies, node deps are often not transpiled for IE11
-      {
-        test: [
-          new RegExp(`${sepRe}node_modules${sepRe}.*ansi-styles`),
-          new RegExp(`${sepRe}node_modules${sepRe}.*chalk`),
-          new RegExp(`${sepRe}node_modules${sepRe}.*jest`),
-          new RegExp(`${sepRe}node_modules${sepRe}.*monaco-textmate`),
-          new RegExp(`${sepRe}node_modules${sepRe}.*onigasm`),
-          new RegExp(
-            `${sepRe}node_modules${sepRe}vue-template-es2015-compiler`
-          ),
-          new RegExp(
-            `${sepRe}node_modules${sepRe}babel-plugin-transform-vue-jsx`
-          ),
-        ],
-        loader: 'babel-loader',
-        query: {
-          presets: [
-            [
-              'env',
-              {
-                targets: {
-                  ie: 11,
-                  esmodules: true,
-                },
-              },
-            ],
-            'react',
-          ],
-          plugins: [
-            'transform-async-to-generator',
-            'transform-object-rest-spread',
-            'transform-class-properties',
-            'transform-runtime',
-          ],
-        },
-      },
-
       // `eslint-plugin-vue/lib/index.js` depends on `fs` module we cannot use in browsers, so needs shimming.
       {
         test: new RegExp(`eslint-plugin-vue${sepRe}lib${sepRe}index\\.js$`),
